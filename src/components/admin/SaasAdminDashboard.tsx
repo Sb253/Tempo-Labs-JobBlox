@@ -34,6 +34,7 @@ import SubscriptionManagement from "./SubscriptionManagement";
 import TenantManagement from "./TenantManagement";
 import AccountSetupOnboarding from "./AccountSetupOnboarding";
 import DemoMode from "./DemoMode";
+import TenantHealthDashboard from "../monitoring/TenantHealthDashboard";
 
 interface AdminStat {
   title: string;
@@ -226,7 +227,7 @@ const SaasAdminDashboard = () => {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-5 bg-white dark:bg-slate-800">
+          <TabsList className="grid w-full grid-cols-6 bg-white dark:bg-slate-800">
             <TabsTrigger
               value="overview"
               className="flex items-center space-x-2"
@@ -258,6 +259,13 @@ const SaasAdminDashboard = () => {
             <TabsTrigger value="demo" className="flex items-center space-x-2">
               <Zap className="h-4 w-4" />
               <span>Demo Mode</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="monitoring"
+              className="flex items-center space-x-2"
+            >
+              <Activity className="h-4 w-4" />
+              <span>Health Monitor</span>
             </TabsTrigger>
           </TabsList>
 
@@ -435,6 +443,10 @@ const SaasAdminDashboard = () => {
 
           <TabsContent value="demo">
             <DemoMode />
+          </TabsContent>
+
+          <TabsContent value="monitoring">
+            <TenantHealthDashboard />
           </TabsContent>
         </Tabs>
       </div>

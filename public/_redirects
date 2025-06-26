@@ -1,0 +1,32 @@
+# Netlify redirects for SPA routing
+# Handle tenant-specific routes
+/:tenantId/dashboard /index.html 200
+/:tenantId/customers /index.html 200
+/:tenantId/jobs /index.html 200
+/:tenantId/estimates /index.html 200
+/:tenantId/invoices /index.html 200
+/:tenantId/payments /index.html 200
+/:tenantId/employees /index.html 200
+/:tenantId/reports /index.html 200
+/:tenantId/settings /index.html 200
+/:tenantId/* /index.html 200
+
+# Handle admin routes
+/admin/* /index.html 200
+
+# Handle auth routes
+/login/* /index.html 200
+
+# Handle monitoring routes
+/monitoring/* /index.html 200
+
+# Handle public routes
+/saas /index.html 200
+/tenants /index.html 200
+/subscription /index.html 200
+
+# Handle tempo storyboard routes
+/tempobook/* /index.html 200
+
+# Catch-all fallback
+/* /index.html 200

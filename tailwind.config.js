@@ -69,6 +69,21 @@ module.exports = {
           red: "#e53935",
           gray: "#546e7a",
         },
+        // Health monitoring colors
+        health: {
+          healthy: "#10b981",
+          degraded: "#f59e0b",
+          unhealthy: "#ef4444",
+          unknown: "#6b7280",
+        },
+        // Tenant isolation colors
+        tenant: {
+          primary: "#3b82f6",
+          secondary: "#8b5cf6",
+          accent: "#ec4899",
+          warning: "#f59e0b",
+          danger: "#ef4444",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

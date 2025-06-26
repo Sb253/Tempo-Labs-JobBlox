@@ -17,7 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Building2,
   Users,
@@ -59,6 +59,9 @@ const LandingPage = () => {
     renderTime: Date.now(),
     errors: [] as string[],
   });
+
+  // TODO: Replace this section with your Tempo-designed website content
+  // Copy your HTML structure, styling, and any interactive elements here
 
   useEffect(() => {
     // System health check
@@ -319,7 +322,10 @@ const LandingPage = () => {
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 px-8 py-4 text-lg font-semibold shadow-2xl"
-                  onClick={() => navigate("/login/tenant")}
+                  onClick={() => {
+                    console.info("Navigating to tenant login");
+                    navigate("/login/tenant");
+                  }}
                 >
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -329,7 +335,10 @@ const LandingPage = () => {
                   size="lg"
                   variant="outline"
                   className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 text-lg font-semibold"
-                  onClick={() => navigate("/login/admin")}
+                  onClick={() => {
+                    console.info("Navigating to admin login");
+                    navigate("/login/admin");
+                  }}
                 >
                   <Zap className="mr-2 h-5 w-5" />
                   Admin Portal
@@ -525,7 +534,10 @@ const LandingPage = () => {
                   </ul>
                   <Button
                     className={`w-full ${plan.popular ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600" : "bg-slate-700 hover:bg-slate-600"} text-white border-0`}
-                    onClick={() => navigate("/subscription")}
+                    onClick={() => {
+                      console.info("Navigating to subscription");
+                      navigate("/subscription");
+                    }}
                   >
                     {plan.name === "Enterprise"
                       ? "Contact Sales"
@@ -613,7 +625,10 @@ const LandingPage = () => {
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 px-8 py-4 text-lg font-semibold"
-                  onClick={() => navigate("/login/tenant")}
+                  onClick={() => {
+                    console.info("Navigating to tenant login from CTA");
+                    navigate("/login/tenant");
+                  }}
                 >
                   Get Started Today
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -622,7 +637,10 @@ const LandingPage = () => {
                   size="lg"
                   variant="outline"
                   className="border-2 border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg font-semibold"
-                  onClick={() => navigate("/login/admin")}
+                  onClick={() => {
+                    console.info("Navigating to admin login from CTA");
+                    navigate("/login/admin");
+                  }}
                 >
                   <Settings className="mr-2 h-5 w-5" />
                   Admin Portal
@@ -666,29 +684,29 @@ const LandingPage = () => {
               <h3 className="text-white font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Features
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Pricing
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Integrations
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Mobile App
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     API
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -698,29 +716,29 @@ const LandingPage = () => {
               <h3 className="text-white font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Careers
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Blog
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="#" className="hover:text-white transition-colors">
                     Support
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -734,15 +752,15 @@ const LandingPage = () => {
               industry.
             </p>
             <div className="flex space-x-6 text-slate-400">
-              <a href="#" className="hover:text-white transition-colors">
+              <Link to="#" className="hover:text-white transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link to="#" className="hover:text-white transition-colors">
                 Terms of Service
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link to="#" className="hover:text-white transition-colors">
                 Security
-              </a>
+              </Link>
             </div>
           </div>
         </div>

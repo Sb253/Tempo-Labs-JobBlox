@@ -35,12 +35,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
     try {
       const success = await login(email, password);
       if (success) {
-        // Redirect based on login type
-        if (loginType === "admin") {
-          window.location.href = "/admin";
-        } else {
-          window.location.href = "/backoffice";
-        }
+        // Login success is handled by AuthContext which redirects to tenant dashboard
         if (onLoginSuccess) {
           onLoginSuccess();
         }
@@ -54,12 +49,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   const handleSkipLogin = () => {
     setBypassAuth(true);
-    // Redirect based on login type
-    if (loginType === "admin") {
-      window.location.href = "/admin";
-    } else {
-      window.location.href = "/backoffice";
-    }
+    // Bypass auth is handled by AuthContext which redirects appropriately
     if (onLoginSuccess) {
       onLoginSuccess();
     }

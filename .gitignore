@@ -32,3 +32,47 @@ core
 
 .github/
 
+# Logs and monitoring
+logs/
+*.log
+*.log.*
+trace-*.json
+audit-*.json
+health-*.json
+metrics-*.json
+performance-*.json
+error-reports/
+crash-dumps/
+
+# Tenant isolation security
+tenant-data/
+session-cache/
+auth-tokens/
+*.tenant
+*.session
+
+# Security and sensitive data
+.env.local
+.env.production
+.env.staging
+secrets/
+keys/
+certs/
+
+# Cache and temporary files
+.cache/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Database dumps and backups
+*.sql
+*.dump
+backups/
+
+# Error reports and crash dumps
+crash-reports/
+error-reports/
+core.*
+

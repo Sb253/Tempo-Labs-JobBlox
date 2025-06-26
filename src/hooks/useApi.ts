@@ -1,39 +1,196 @@
-// React hooks for API integration
-import { useState, useEffect, useCallback } from "react";
+// Enhanced React hooks for API integration with tenant isolation
+import { useState, useEffect, useCallback, useRef } from "react";
 import { apiService } from "../services/api";
 import { ApiResponse } from "../types/backend";
+import { useAuth } from "../contexts/AuthContext";
 
-// Generic hook for API calls
+// Generic hook for API calls with enhanced security
 export function useApi<T>(
   apiCall: () => Promise<ApiResponse<T>>,
   dependencies: any[] = [],
+  options: {
+    requiresAuth?: boolean;
+    requiresTenant?: boolean;
+    retryCount?: number;
+    cacheKey?: string;
+  } = {},
 ) {
+  const {
+    isAuthenticated,
+    user,
+    tenant,
+    session,
+    validateSession,
+    getAuthHeaders,
+    updateActivity,
+  } = useAuth();
+
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryAttempt, setRetryAttempt] = useState(0);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const {
+    requiresAuth = true,
+    requiresTenant = true,
+    retryCount = 3,
+    cacheKey,
+  } = options;
 
   const fetchData = useCallback(async () => {
+    // Validate prerequisites
+    if (requiresAuth && !isAuthenticated) {
+      setError("Authentication required");
+      setLoading(false);
+      return;
+    }
+
+    if (requiresTenant && !tenant) {
+      setError("Tenant context required");
+      setLoading(false);
+      return;
+    }
+
+    if (requiresAuth && !validateSession()) {
+      setError("Invalid session");
+      setLoading(false);
+      return;
+    }
+
+    // Cancel previous request if still pending
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
+    abortControllerRef.current = new AbortController();
+
     try {
       setLoading(true);
       setError(null);
+
+      // Update API service with current auth context
+      if (isAuthenticated && user && tenant && session) {
+        apiService.setAuthToken(session.sessionId);
+        apiService.setTenantId(tenant.tenantId);
+        apiService.setSessionId(session.sessionId);
+        apiService.setUserId(user.id);
+      }
+
+      console.info("API call initiated", {
+        requiresAuth,
+        requiresTenant,
+        userId: user?.id,
+        tenantId: tenant?.tenantId,
+        sessionId: session?.sessionId,
+        traceId: session?.traceId,
+        cacheKey,
+      });
+
       const response = await apiCall();
+
+      // Update activity on successful API call
+      if (isAuthenticated) {
+        updateActivity();
+      }
+
       if (response.success && response.data) {
         setData(response.data);
+        setRetryAttempt(0); // Reset retry count on success
+
+        console.info("API call successful", {
+          userId: user?.id,
+          tenantId: tenant?.tenantId,
+          traceId: session?.traceId,
+          cacheKey,
+        });
       } else {
-        setError(response.error || "Unknown error occurred");
+        const errorMessage = response.error || "Unknown error occurred";
+        setError(errorMessage);
+
+        console.warn("API call failed", {
+          error: errorMessage,
+          userId: user?.id,
+          tenantId: tenant?.tenantId,
+          traceId: session?.traceId,
+        });
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error occurred");
+      if (err instanceof Error && err.name === "AbortError") {
+        console.info("API call aborted");
+        return;
+      }
+
+      const errorMessage =
+        err instanceof Error ? err.message : "Unknown error occurred";
+
+      console.error("API call error", {
+        error: errorMessage,
+        retryAttempt,
+        maxRetries: retryCount,
+        userId: user?.id,
+        tenantId: tenant?.tenantId,
+        traceId: session?.traceId,
+      });
+
+      // Implement retry logic for transient errors
+      if (retryAttempt < retryCount && shouldRetry(err)) {
+        console.info("Retrying API call", {
+          attempt: retryAttempt + 1,
+          maxRetries: retryCount,
+        });
+        setRetryAttempt((prev) => prev + 1);
+        setTimeout(() => fetchData(), Math.pow(2, retryAttempt) * 1000); // Exponential backoff
+        return;
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
     }
-  }, dependencies);
+  }, [
+    ...dependencies,
+    isAuthenticated,
+    user?.id,
+    tenant?.tenantId,
+    session?.sessionId,
+    retryAttempt,
+  ]);
+
+  // Determine if error should trigger a retry
+  const shouldRetry = (error: any): boolean => {
+    if (error instanceof Error) {
+      // Retry on network errors, timeouts, and 5xx server errors
+      return (
+        error.message.includes("fetch") ||
+        error.message.includes("timeout") ||
+        error.message.includes("network") ||
+        (error as any).status >= 500
+      );
+    }
+    return false;
+  };
 
   useEffect(() => {
     fetchData();
+
+    // Cleanup function to abort pending requests
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
   }, [fetchData]);
 
-  return { data, loading, error, refetch: fetchData };
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchData,
+    retryAttempt,
+    canRetry: retryAttempt < retryCount,
+  };
 }
 
 // Hook for paginated data

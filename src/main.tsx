@@ -80,3 +80,22 @@ window.addEventListener("unhandledrejection", (event) => {
 
 // Initialize the application
 initializeApp();
+
+// Import route testing utilities in development
+if (import.meta.env.DEV) {
+  import("./utils/routeTest")
+    .then(({ runComprehensiveRouteTests }) => {
+      // Auto-run route tests if URL parameter is present
+      if (window.location.search.includes("test-routes")) {
+        console.info("🧪 Route testing enabled via URL parameter");
+        setTimeout(runComprehensiveRouteTests, 3000);
+      }
+
+      // Add global function for manual testing
+      (window as any).testRoutes = runComprehensiveRouteTests;
+      console.info("💡 Run window.testRoutes() to test all routes manually");
+    })
+    .catch((error) => {
+      console.warn("Failed to load route testing utilities:", error);
+    });
+}
