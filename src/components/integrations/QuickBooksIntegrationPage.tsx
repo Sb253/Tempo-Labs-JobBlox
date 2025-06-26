@@ -12,7 +12,7 @@ import {
   CheckCircle,
   AlertCircle,
   Settings,
-  Sync,
+  RefreshCw,
   DollarSign,
   FileText,
   Users,
@@ -115,7 +115,7 @@ const QuickBooksIntegrationPage = () => {
         <Card className="bg-slate-800 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <Sync className="h-5 w-5 text-blue-400" />
+              <RefreshCw className="h-5 w-5 text-blue-400" />
               Connection Status
             </CardTitle>
             <CardDescription className="text-slate-400">
@@ -276,7 +276,7 @@ const QuickBooksIntegrationPage = () => {
         {/* Action Buttons */}
         <div className="flex gap-4">
           <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-            <Sync className="h-4 w-4 mr-2" />
+            <RefreshCw className="h-4 w-4 mr-2" />
             Force Sync Now
           </Button>
           <Button

@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CheckCircle,
   AlertCircle,
-  Sync,
+  RefreshCw,
   FileText,
   DollarSign,
   Settings,
@@ -135,7 +135,7 @@ const AccountingIntegration = () => {
       case "success":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
       case "pending":
-        return <Sync className="w-4 h-4 text-yellow-600 animate-spin" />;
+        return <RefreshCw className="w-4 h-4 text-yellow-600 animate-spin" />;
       case "error":
         return <AlertCircle className="w-4 h-4 text-red-600" />;
       default:
@@ -214,7 +214,7 @@ const AccountingIntegration = () => {
               <CardTitle className="text-sm font-medium">
                 Sync Modules
               </CardTitle>
-              <Sync className="h-4 w-4 text-muted-foreground" />
+              <RefreshCw className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
