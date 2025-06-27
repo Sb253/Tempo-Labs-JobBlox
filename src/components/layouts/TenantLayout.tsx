@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, useParams, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import MegaMenu from "@/components/ui/mega-menu";
 
 const TenantLayout: React.FC = () => {
   const { isAuthenticated, tenant, user } = useAuth();
@@ -32,7 +33,10 @@ const TenantLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Outlet />
+      <MegaMenu isAdmin={false} />
+      <div className="transition-all duration-300">
+        <Outlet />
+      </div>
     </div>
   );
 };

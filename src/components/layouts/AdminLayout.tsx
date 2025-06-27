@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRole } from "@/contexts/RoleContext";
+import MegaMenu from "@/components/ui/mega-menu";
 
 const AdminLayout: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
@@ -23,7 +24,10 @@ const AdminLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Outlet />
+      <MegaMenu isAdmin={true} />
+      <div className="transition-all duration-300">
+        <Outlet />
+      </div>
     </div>
   );
 };

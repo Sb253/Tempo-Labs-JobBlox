@@ -16,6 +16,7 @@ import TenantHealthDashboard from "./components/monitoring/TenantHealthDashboard
 import TenantLayout from "./components/layouts/TenantLayout";
 import AdminLayout from "./components/layouts/AdminLayout";
 import TenantDashboard from "./components/TenantDashboard";
+import JobBloxDashboard from "./components/dashboard/JobBloxDashboard";
 import BackOfficeDashboard from "./components/backoffice/BackOfficeDashboard";
 import SaasAdminDashboard from "./components/admin/SaasAdminDashboard";
 import TempoWebsite from "./components/TempoWebsite";
@@ -161,7 +162,7 @@ const AppContent = () => {
           {/* Tenant-specific routes */}
           <Route path="/:tenantId" element={<TenantLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<TenantDashboard />} />
+            <Route path="dashboard" element={<JobBloxDashboard />} />
             <Route path="kpis" element={<KPIs />} />
             <Route path="quick-actions" element={<QuickActions />} />
             <Route path="customers" element={<CustomerManagement />} />
