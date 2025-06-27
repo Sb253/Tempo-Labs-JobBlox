@@ -17,6 +17,8 @@ import {
   CreditCard,
   UserCheck,
   BarChart3,
+  Bell,
+  Plus,
 } from "lucide-react";
 
 const TenantDashboard: React.FC = () => {
