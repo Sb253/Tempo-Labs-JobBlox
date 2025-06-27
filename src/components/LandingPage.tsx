@@ -348,10 +348,7 @@ const LandingPage = () => {
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className={cn(
-                  "relative border-slate-200 dark:border-slate-700 touch-manipulation transition-all duration-300",
-                  "hover:shadow-lg hover:scale-105",
-                )}
+                className="relative border-slate-200 dark:border-slate-700 touch-manipulation transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 <CardHeader>
                   <div
