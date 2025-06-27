@@ -278,6 +278,97 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 text-white dark:text-white overflow-x-hidden">
+      {/* Mobile-First Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 lg:hidden">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center space-x-2">
+            <Building2 className="h-6 w-6 text-blue-500" />
+            <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              JobBlox
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => navigate("/login/tenant")}
+              className="text-white hover:bg-slate-800 touch-manipulation"
+            >
+              Sign In
+            </Button>
+            <Button
+              size="sm"
+              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white touch-manipulation"
+              onClick={() => navigate("/subscription")}
+            >
+              Get Started
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Desktop Navigation */}
+      <nav className="hidden lg:flex fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Building2 className="h-8 w-8 text-blue-500" />
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                JobBlox
+              </span>
+            </div>
+            <div className="hidden lg:flex items-center space-x-8">
+              <a
+                href="#features"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                Features
+              </a>
+              <a
+                href="#pricing"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                Pricing
+              </a>
+              <a
+                href="#about"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                About
+              </a>
+              <a
+                href="#contact"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/login/tenant")}
+                className="text-white hover:bg-slate-800"
+              >
+                Sign In
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white"
+                onClick={() => navigate("/subscription")}
+              >
+                Get Started
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/login/admin")}
+                className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900"
+              >
+                <Zap className="mr-2 h-4 w-4" />
+                Admin
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
       {/* System Health Indicator (only visible in development) */}
       {import.meta.env.DEV && (
         <div className="fixed top-4 right-4 z-50">
@@ -297,31 +388,31 @@ const LandingPage = () => {
         </div>
       )}
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden pt-16 lg:pt-0">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20">
-          <div className="relative container mx-auto px-6 py-20">
+          <div className="relative container mx-auto px-4 lg:px-6 py-12 lg:py-20">
             <div className="text-center space-y-8">
               <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 px-4 py-2">
                 <Sparkles className="mr-2 h-4 w-4" />
                 Next-Generation Construction CRM
               </Badge>
 
-              <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent leading-tight">
                 Build Smarter,
-                <br />
-                Manage Better
+                <br className="hidden sm:block" />
+                <span className="sm:hidden"> </span>Manage Better
               </h1>
 
-              <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed px-4">
                 The only construction CRM you'll ever need. Multi-tenant
                 architecture, powerful project management, and seamless client
                 collaboration.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 px-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 px-8 py-4 text-lg font-semibold shadow-2xl"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 px-8 py-4 text-lg font-semibold shadow-2xl touch-manipulation"
                   onClick={() => {
                     console.info("Navigating to tenant login");
                     navigate("/login/tenant");
@@ -334,7 +425,7 @@ const LandingPage = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 text-lg font-semibold"
+                  className="w-full sm:w-auto border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 text-lg font-semibold touch-manipulation"
                   onClick={() => {
                     console.info("Navigating to admin login");
                     navigate("/login/admin");

@@ -223,9 +223,37 @@ const SubscriptionPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Mobile Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 lg:hidden">
+        <div className="flex items-center justify-between px-4 py-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/")}
+            className="text-slate-400 hover:text-white"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+          <div className="flex items-center space-x-2">
+            <Building2 className="h-5 w-5 text-blue-500" />
+            <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              JobBlox
+            </span>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/admin")}
+            className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900"
+          >
+            <Zap className="h-4 w-4" />
+          </Button>
+        </div>
+      </nav>
       {/* Header */}
-      <div className="border-b border-slate-800 bg-slate-900/50">
-        <div className="container mx-auto px-6 py-6">
+      <div className="border-b border-slate-800 bg-slate-900/50 pt-16 lg:pt-0 hidden lg:block">
+        <div className="container mx-auto px-4 lg:px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button
@@ -259,16 +287,16 @@ const SubscriptionPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="py-16">
-        <div className="container mx-auto px-6 text-center">
+      <div className="py-12 lg:py-16 pt-20 lg:pt-16">
+        <div className="container mx-auto px-4 lg:px-6 text-center">
           <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 px-4 py-2 mb-6">
             <Sparkles className="mr-2 h-4 w-4" />
             Choose Your Plan
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent leading-tight">
             Simple, Transparent Pricing
           </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-8">
+          <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 px-4">
             Start with a 14-day free trial. No credit card required. Cancel
             anytime.
           </p>
@@ -312,14 +340,16 @@ const SubscriptionPage = () => {
 
       {/* Pricing Cards */}
       <div className="pb-16">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <Card
                 key={index}
                 className={`relative bg-slate-800/50 border-2 ${plan.borderColor} hover:bg-slate-800/70 transition-all duration-300 ${
-                  plan.popular ? "scale-105 shadow-2xl" : "hover:scale-105"
-                }`}
+                  plan.popular
+                    ? "lg:scale-105 shadow-2xl"
+                    : "hover:lg:scale-105"
+                } ${plan.popular && index === 1 ? "md:col-span-2 lg:col-span-1" : ""}`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -359,7 +389,7 @@ const SubscriptionPage = () => {
 
                 <CardContent className="space-y-6">
                   <Button
-                    className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white border-0 font-semibold`}
+                    className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white border-0 font-semibold touch-manipulation`}
                     size="lg"
                   >
                     Start Free Trial

@@ -317,53 +317,56 @@ const CustomerManagement = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
         {/* Header */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-slate-200 dark:border-slate-700">
-          <div className="flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-4 lg:p-6 border border-slate-200 dark:border-slate-700">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Customer Management
               </h1>
               <p className="text-slate-600 dark:text-slate-400 mt-2">
                 Manage customer relationships and track project history
               </p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 lg:space-x-3">
               <Button
                 variant="outline"
-                className="hover:bg-slate-50 dark:hover:bg-slate-700"
+                size="sm"
+                className="hover:bg-slate-50 dark:hover:bg-slate-700 lg:size-default"
               >
                 <Download className="mr-2 h-4 w-4" />
-                Export
+                <span className="hidden sm:inline">Export</span>
               </Button>
               <Button
                 onClick={() => setIsAddDialogOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                size="sm"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 lg:size-default touch-manipulation"
               >
                 <UserPlus className="mr-2 h-4 w-4" />
-                Add Customer
+                <span className="hidden sm:inline">Add Customer</span>
+                <span className="sm:hidden">Add</span>
               </Button>
             </div>
           </div>
         </div>
 
         {/* Customer Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-6">
           <Card className="hover:shadow-xl transition-all duration-300 border-l-4 border-l-blue-500">
-            <CardContent className="p-6">
+            <CardContent className="p-3 lg:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                  <p className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white">
                     {customerStats.totalCustomers}
                   </p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                  <p className="text-xs lg:text-sm text-slate-600 dark:text-slate-400 font-medium">
                     Total Customers
                   </p>
                 </div>
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                  <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 lg:p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                  <Users className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
             </CardContent>

@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { Building2, Mail, Lock, Zap } from "lucide-react";
+import { Building2, Mail, Lock, Zap, ArrowLeft } from "lucide-react";
 
 interface LoginFormProps {
   onLoginSuccess?: () => void;
@@ -56,8 +56,19 @@ const LoginForm: React.FC<LoginFormProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-2 border-gradient-to-r from-blue-200 to-purple-200 dark:from-blue-800 dark:to-purple-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950 flex items-center justify-center p-4 sm:p-6">
+      {/* Mobile-First Back Button */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => window.history.back()}
+        className="fixed top-4 left-4 z-50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white lg:hidden"
+      >
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Back
+      </Button>
+
+      <Card className="w-full max-w-md bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-2 border-gradient-to-r from-blue-200 to-purple-200 dark:from-blue-800 dark:to-purple-800 shadow-2xl">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
             <Building2 className="w-8 h-8 text-white" />
@@ -116,7 +127,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             )}
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 touch-manipulation text-base"
               disabled={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}
@@ -138,7 +149,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             type="button"
             variant="outline"
             onClick={handleSkipLogin}
-            className="w-full border-2 border-dashed border-orange-300 dark:border-orange-700 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 font-medium py-2 px-4 rounded-lg transition-all duration-200"
+            className="w-full border-2 border-dashed border-orange-300 dark:border-orange-700 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 font-medium py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation text-base"
           >
             <Zap className="w-4 h-4 mr-2" />
             Skip Login (Development Mode)

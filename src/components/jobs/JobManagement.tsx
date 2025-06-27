@@ -292,40 +292,53 @@ const JobManagement = () => {
   }
 
   return (
-    <div className="bg-white p-6 space-y-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 lg:p-6 space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Job Management</h1>
-          <p className="text-gray-600">
-            Manage all construction jobs, schedules, and assignments
-          </p>
-        </div>
-        <div className="flex space-x-2">
-          <Button variant="outline">
-            <Download className="mr-2 h-4 w-4" />
-            Export
-          </Button>
-          <Button variant="outline">
-            <Upload className="mr-2 h-4 w-4" />
-            Import
-          </Button>
-          <Button onClick={handleCreateJob}>
-            <Plus className="mr-2 h-4 w-4" />
-            New Job
-          </Button>
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-4 lg:p-6 border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white">
+              Job Management
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400">
+              Manage all construction jobs, schedules, and assignments
+            </p>
+          </div>
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm" className="lg:size-default">
+              <Download className="mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">Export</span>
+            </Button>
+            <Button variant="outline" size="sm" className="lg:size-default">
+              <Upload className="mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">Import</span>
+            </Button>
+            <Button
+              onClick={handleCreateJob}
+              size="sm"
+              className="lg:size-default touch-manipulation"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              <span className="hidden sm:inline">New Job</span>
+              <span className="sm:hidden">New</span>
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        <Card>
-          <CardContent className="p-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
+        <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+          <CardContent className="p-3 lg:p-4">
             <div className="flex items-center space-x-2">
               <Briefcase className="h-5 w-5 text-blue-500" />
               <div>
-                <p className="text-sm text-gray-600">Total Jobs</p>
-                <p className="text-2xl font-bold">{stats.total}</p>
+                <p className="text-xs lg:text-sm text-slate-600 dark:text-slate-400">
+                  Total Jobs
+                </p>
+                <p className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
+                  {stats.total}
+                </p>
               </div>
             </div>
           </CardContent>

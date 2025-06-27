@@ -297,10 +297,6 @@ const AppContent = () => {
               )
             }
           />
-          <Route
-            path="/login"
-            element={<Navigate to="/login/tenant" replace />}
-          />
 
           {/* Tempo storyboard routes - must come before catch-all */}
           {import.meta.env.VITE_TEMPO === "true" && (
