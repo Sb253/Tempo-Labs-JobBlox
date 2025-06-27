@@ -200,50 +200,52 @@ const ManagerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 lg:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
+        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div className="flex items-center space-x-3">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white">
-              <Briefcase className="h-8 w-8" />
+            <div className="p-2 lg:p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white">
+              <Briefcase className="h-6 w-6 lg:h-8 lg:w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+              <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white">
                 Manager Dashboard
               </h1>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-sm lg:text-base text-slate-600 dark:text-slate-400">
                 Manage your projects and team efficiently
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
             <Button
               variant="outline"
               onClick={() => navigate("/scheduling")}
-              className="touch-manipulation"
+              className="touch-manipulation h-10 lg:h-auto"
             >
               <Calendar className="mr-2 h-4 w-4" />
-              Schedule
+              <span className="hidden sm:inline">Schedule</span>
+              <span className="sm:hidden">Calendar</span>
             </Button>
             <Button
               onClick={() => navigate("/job-form")}
-              className="touch-manipulation"
+              className="touch-manipulation h-10 lg:h-auto"
             >
               <Plus className="mr-2 h-4 w-4" />
-              New Project
+              <span className="hidden sm:inline">New Project</span>
+              <span className="sm:hidden">New</span>
             </Button>
           </div>
         </div>
 
         {/* Manager Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {managerMetrics.map((metric, index) => (
             <Card
               key={index}
               className="border-slate-200 dark:border-slate-700"
             >
-              <CardContent className="p-6">
+              <CardContent className="p-4 lg:p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 ${metric.color} rounded-lg text-white`}>
                     {metric.icon}
@@ -271,11 +273,31 @@ const ManagerDashboard = () => {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="team">Team</TabsTrigger>
-            <TabsTrigger value="tasks">Tasks</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 h-auto">
+            <TabsTrigger
+              value="overview"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Overview
+            </TabsTrigger>
+            <TabsTrigger
+              value="projects"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Projects
+            </TabsTrigger>
+            <TabsTrigger
+              value="team"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Team
+            </TabsTrigger>
+            <TabsTrigger
+              value="tasks"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Tasks
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">

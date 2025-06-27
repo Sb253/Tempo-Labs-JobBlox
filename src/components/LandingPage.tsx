@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -24,11 +24,24 @@ import {
   Smartphone,
   Globe,
   Clock,
+  Menu,
+  X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const features = [
     {
@@ -155,88 +168,165 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
-        <div className="container mx-auto px-4 lg:px-6 py-4">
+      <header
+        className={cn(
+          "sticky top-0 z-50 transition-all duration-300",
+          isScrolled
+            ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg"
+            : "bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm",
+          "border-b border-slate-200 dark:border-slate-700",
+        )}
+      >
+        <div className="container mx-auto px-4 lg:px-6 py-3 lg:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Building2 className="h-8 w-8 text-blue-500" />
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+              <Building2 className="h-7 w-7 lg:h-8 lg:w-8 text-blue-500" />
+              <span className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
                 JobBlox
               </span>
             </div>
-            <nav className="hidden md:flex items-center space-x-8">
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
               <a
                 href="#features"
-                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium"
               >
                 Features
               </a>
               <a
                 href="#pricing"
-                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium"
               >
                 Pricing
               </a>
               <a
                 href="#testimonials"
-                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium"
               >
                 Testimonials
               </a>
               <Button
                 variant="outline"
                 onClick={() => navigate("/login/tenant")}
+                className="touch-manipulation"
               >
                 Sign In
               </Button>
-              <Button onClick={() => navigate("/signup")}>
+              <Button
+                onClick={() => navigate("/signup")}
+                className="touch-manipulation"
+              >
                 Start Free Trial
               </Button>
             </nav>
-            <Button
-              variant="ghost"
-              className="md:hidden"
-              onClick={() => navigate("/signup")}
-            >
-              Get Started
-            </Button>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center space-x-2 lg:hidden">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="touch-manipulation p-2"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </Button>
+            </div>
           </div>
+
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+              <nav className="flex flex-col space-y-4">
+                <a
+                  href="#features"
+                  className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-2 touch-manipulation"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Features
+                </a>
+                <a
+                  href="#pricing"
+                  className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-2 touch-manipulation"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Pricing
+                </a>
+                <a
+                  href="#testimonials"
+                  className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-2 touch-manipulation"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Testimonials
+                </a>
+                <div className="flex flex-col space-y-3 pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      navigate("/login/tenant");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="touch-manipulation h-12"
+                  >
+                    Sign In
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      navigate("/signup");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="touch-manipulation h-12"
+                  >
+                    Start Free Trial
+                  </Button>
+                </div>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950">
-        <div className="container mx-auto px-4 lg:px-6 text-center">
-          <Badge className="mb-6 bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
+      <section className="py-12 sm:py-16 lg:py-24 xl:py-32 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950 overflow-hidden">
+        <div className="container mx-auto px-4 lg:px-6 text-center relative">
+          <Badge className="mb-4 lg:mb-6 bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400 text-sm lg:text-base px-4 py-2 touch-manipulation">
             <Zap className="mr-2 h-4 w-4" />
             Now with AI-Powered Insights
           </Badge>
-          <h1 className="text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 dark:text-white mb-4 lg:mb-6 leading-tight">
             Construction Management
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mt-2">
               Made Simple
             </span>
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-6 lg:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
             Streamline your construction projects with our all-in-one platform.
             From project planning to client communication, JobBlox has
             everything you need to build success.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 px-4">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-4 text-lg"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg touch-manipulation h-12 lg:h-14"
               onClick={() => navigate("/signup")}
             >
               Start Free Trial
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="px-8 py-4 text-lg">
-              <Play className="mr-2 h-5 w-5" />
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg touch-manipulation h-12 lg:h-14"
+            >
+              <Play className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
               Watch Demo
             </Button>
           </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 lg:mt-6 px-4">
             No credit card required • 14-day free trial • Cancel anytime
           </p>
         </div>
@@ -254,11 +344,14 @@ const LandingPage = () => {
               JobBlox scales with your business.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="hover:shadow-lg transition-shadow border-slate-200 dark:border-slate-700"
+                className={cn(
+                  "relative border-slate-200 dark:border-slate-700 touch-manipulation transition-all duration-300",
+                  "hover:shadow-lg hover:scale-105",
+                )}
               >
                 <CardHeader>
                   <div
@@ -371,7 +464,7 @@ const LandingPage = () => {
               See what our customers have to say about JobBlox
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <Card
                 key={index}
@@ -423,15 +516,16 @@ const LandingPage = () => {
               Choose the plan that fits your construction business
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {pricingPlans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative border-slate-200 dark:border-slate-700 ${
+                className={cn(
+                  "relative border-slate-200 dark:border-slate-700 touch-manipulation transition-all duration-300",
                   plan.popular
                     ? "ring-2 ring-blue-500 shadow-lg scale-105"
-                    : "hover:shadow-lg transition-shadow"
-                }`}
+                    : "hover:shadow-lg transition-shadow",
+                )}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">

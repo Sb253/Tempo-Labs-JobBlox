@@ -175,35 +175,36 @@ const OwnerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 lg:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
+        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div className="flex items-center space-x-3">
-            <div className="p-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl text-white">
-              <Crown className="h-8 w-8" />
+            <div className="p-2 lg:p-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl text-white">
+              <Crown className="h-6 w-6 lg:h-8 lg:w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+              <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white">
                 Owner Dashboard
               </h1>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-sm lg:text-base text-slate-600 dark:text-slate-400">
                 Welcome back, {user?.name}. Here's your business overview.
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
             <Button
               variant="outline"
               onClick={() => navigate("/reports")}
-              className="touch-manipulation"
+              className="touch-manipulation h-10 lg:h-auto"
             >
               <BarChart3 className="mr-2 h-4 w-4" />
-              View Reports
+              <span className="hidden sm:inline">View Reports</span>
+              <span className="sm:hidden">Reports</span>
             </Button>
             <Button
               onClick={() => navigate("/user-management")}
-              className="touch-manipulation"
+              className="touch-manipulation h-10 lg:h-auto"
             >
               <Settings className="mr-2 h-4 w-4" />
               Settings
@@ -212,15 +213,17 @@ const OwnerDashboard = () => {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {kpis.map((kpi, index) => (
             <Card
               key={index}
               className="border-slate-200 dark:border-slate-700"
             >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`p-3 ${kpi.color} rounded-lg text-white`}>
+              <CardContent className="p-4 lg:p-6">
+                <div className="flex items-center justify-between mb-3 lg:mb-4">
+                  <div
+                    className={`p-2 lg:p-3 ${kpi.color} rounded-lg text-white`}
+                  >
                     {kpi.icon}
                   </div>
                   <div
@@ -237,10 +240,10 @@ const OwnerDashboard = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
+                  <div className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white mb-1">
                     {kpi.value}
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                  <div className="text-xs lg:text-sm text-slate-600 dark:text-slate-400">
                     {kpi.title}
                   </div>
                 </div>
@@ -255,15 +258,35 @@ const OwnerDashboard = () => {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="team">Team</TabsTrigger>
-            <TabsTrigger value="financials">Financials</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 h-auto">
+            <TabsTrigger
+              value="overview"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Overview
+            </TabsTrigger>
+            <TabsTrigger
+              value="projects"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Projects
+            </TabsTrigger>
+            <TabsTrigger
+              value="team"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Team
+            </TabsTrigger>
+            <TabsTrigger
+              value="financials"
+              className="text-xs lg:text-sm py-2 lg:py-3 touch-manipulation"
+            >
+              Financials
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
               {/* Recent Projects */}
               <Card className="border-slate-200 dark:border-slate-700">
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -286,7 +309,7 @@ const OwnerDashboard = () => {
                   {recentProjects.slice(0, 3).map((project) => (
                     <div
                       key={project.id}
-                      className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg"
+                      className="flex items-center justify-between p-3 lg:p-4 bg-slate-50 dark:bg-slate-800 rounded-lg touch-manipulation"
                     >
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
@@ -504,7 +527,7 @@ const OwnerDashboard = () => {
                   key={index}
                   className="border-slate-200 dark:border-slate-700"
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 lg:p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-semibold text-slate-900 dark:text-white">
                         {metric.title}
