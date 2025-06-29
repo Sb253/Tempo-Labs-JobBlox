@@ -86,7 +86,13 @@ interface AIAnalysis {
   processingTime: number;
 }
 
-const SmartDocumentGenerator: React.FC = () => {
+interface SmartDocumentGeneratorProps {
+  onNavigate?: (path: string) => void;
+}
+
+const SmartDocumentGenerator: React.FC<SmartDocumentGeneratorProps> = ({
+  onNavigate = () => {},
+}) => {
   const [activeTab, setActiveTab] = useState("generate");
   const [selectedTemplate, setSelectedTemplate] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -586,7 +592,7 @@ ${data.client ? `Client: ${data.client}` : ""}
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-full bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -1209,10 +1215,6 @@ ${data.client ? `Client: ${data.client}` : ""}
                       <Button
                         size="sm"
                         className="flex-1 bg-purple-600 hover:bg-purple-700"
-                        onClick={() => {
-                          handleTemplateSelect(template.id);
-                          setActiveTab("generate");
-                        }}
                       >
                         <Wand2 className="mr-2 h-4 w-4" />
                         Use Template

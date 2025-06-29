@@ -37,8 +37,12 @@ import {
   Brain,
   Wand2,
   BarChart3,
+  Calculator,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import AIChatAssistant from "@/components/ai/AIChatAssistant";
+import SmartDocumentGenerator from "@/components/ai/SmartDocumentGenerator";
+import PredictiveAnalyticsDashboard from "@/components/ai/PredictiveAnalyticsDashboard";
 
 interface KeyStat {
   title: string;
@@ -426,7 +430,6 @@ const JobBloxDashboard = () => {
           </nav>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="ml-64">
         {/* Header */}
@@ -749,191 +752,27 @@ const JobBloxDashboard = () => {
           </div>
         </main>
       </div>
-
       {/* AI Features Overlay */}
       {activeAIFeature && activeAIFeature !== "chat" && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-xl font-semibold text-gray-900">
-                {activeAIFeature === "documents" && "Smart Document Generator"}
-                {activeAIFeature === "analytics" &&
-                  "Predictive Analytics Dashboard"}
-              </h2>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveAIFeature(null)}
-                className="text-gray-900 hover:text-gray-700"
-              >
-                ×
-              </Button>
-            </div>
-            <div className="overflow-auto max-h-[calc(90vh-80px)] p-4">
-              {activeAIFeature === "documents" && (
-                <div className="text-gray-900">
-                  <h3 className="text-lg font-semibold mb-4">
-                    Smart Document Generator
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    AI-powered document generation with intelligent templates
-                    and automation.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <FileText className="h-4 w-4" />
-                        Contract Templates
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Generate custom contracts with AI-powered legal
-                        compliance
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <DollarSign className="h-4 w-4" />
-                        Invoice Templates
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Create professional invoices with automated calculations
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <Calculator className="h-4 w-4" />
-                        Estimate Templates
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Generate accurate project estimates with market data
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <BarChart3 className="h-4 w-4" />
-                        Report Templates
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Create detailed reports with automated insights
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeAIFeature === "analytics" && (
-                <div className="text-gray-900">
-                  <h3 className="text-lg font-semibold mb-4">
-                    Predictive Analytics Dashboard
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    AI-powered insights and forecasting for smarter business
-                    decisions.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4" />
-                        Revenue Forecasting
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Predict future revenue trends with 94% accuracy
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        Customer Insights
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Analyze customer behavior and lifetime value
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4" />
-                        Project Success Rates
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Predict project outcomes and identify risks early
-                      </p>
-                    </div>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <Wrench className="h-4 w-4" />
-                        Resource Optimization
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Optimize resource allocation and scheduling
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* AI Chat Assistant Placeholder */}
-      {showAIChat && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <div
-            className={`bg-white rounded-lg shadow-xl border transition-all duration-300 ${
-              isChatMinimized ? "w-64 h-12" : "w-96 h-96"
-            }`}
-          >
-            <div className="flex items-center justify-between p-3 border-b bg-purple-600 text-white rounded-t-lg">
-              <div className="flex items-center space-x-2">
-                <Bot className="h-4 w-4" />
-                <span className="font-medium">AI Assistant</span>
-              </div>
-              <div className="flex items-center space-x-1">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40">
+          <div className="flex items-center justify-center min-h-screen p-4">
+            <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  {activeAIFeature === "documents" &&
+                    "Smart Document Generator"}
+                  {activeAIFeature === "analytics" &&
+                    "Predictive Analytics Dashboard"}
+                </h2>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsChatMinimized(!isChatMinimized)}
-                  className="text-white hover:bg-purple-700 h-6 w-6 p-0"
-                >
-                  {isChatMinimized ? "+" : "−"}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowAIChat(false)}
-                  className="text-white hover:bg-purple-700 h-6 w-6 p-0"
+                  onClick={() => setActiveAIFeature(null)}
+                  className="text-gray-900 hover:text-gray-700"
                 >
                   ×
                 </Button>
-              </div>
-            </div>
-            {!isChatMinimized && (
-              <div className="p-4 h-80 flex flex-col">
-                <div className="flex-1 bg-gray-50 rounded p-3 mb-3 overflow-y-auto">
-                  <div className="text-sm text-gray-600 mb-2">
-                    <strong>AI Assistant:</strong> Hello! I'm here to help you
-                    with your construction management tasks. How can I assist
-                    you today?
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <input
-                    type="text"
-                    placeholder="Type your message..."
-                    className="flex-1 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                  <Button
-                    size="sm"
-                    className="bg-purple-600 hover:bg-purple-700"
-                  >
-                    Send
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+                 </div>
   );
 };
 

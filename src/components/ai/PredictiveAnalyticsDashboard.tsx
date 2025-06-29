@@ -216,7 +216,7 @@ const PredictiveAnalyticsDashboard: React.FC = () => {
         "Predictive maintenance algorithms identify potential equipment failures",
       recommendations: [
         "Schedule preventive maintenance for tile saw",
-        "Order replacement parts for compressor",
+        "Order replacement seals for compressor",
         "Consider equipment upgrade for better reliability",
       ],
       historicalAccuracy: 0.91,

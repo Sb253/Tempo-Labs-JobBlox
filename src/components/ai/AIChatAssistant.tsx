@@ -68,6 +68,7 @@ interface AIChatAssistantProps {
   onToggleMinimize?: () => void;
   onClose?: () => void;
   currentContext?: string;
+  onNavigate?: (path: string) => void;
 }
 
 const AIChatAssistant: React.FC<AIChatAssistantProps> = ({
@@ -75,6 +76,7 @@ const AIChatAssistant: React.FC<AIChatAssistantProps> = ({
   onToggleMinimize = () => {},
   onClose = () => {},
   currentContext = "dashboard",
+  onNavigate = () => {},
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
