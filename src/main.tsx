@@ -3,6 +3,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter, useInRouterContext } from "react-router-dom";
+import { TempoDevtools } from "tempo-devtools";
+
+// Initialize Tempo Devtools
+TempoDevtools.init();
 
 // Base URL + environment logging
 try {
@@ -16,7 +20,13 @@ try {
 // Avoid double <Router> if wrapped by e.g. Tempo Preview
 const AppWrapper = () => {
   const inRouter = useInRouterContext?.();
-  return inRouter ? <App /> : <BrowserRouter><App /></BrowserRouter>;
+  return inRouter ? (
+    <App />
+  ) : (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
 };
 
 const rootElement = document.getElementById("root");
@@ -27,7 +37,7 @@ if (!rootElement) {
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <AppWrapper />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // Global error handlers

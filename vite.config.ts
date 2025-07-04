@@ -21,7 +21,7 @@ export default defineConfig({
   },
   server: {
     // @ts-ignore
-    allowedHosts: true,
+    allowedHosts: process.env.TEMPO === "true" ? true : undefined,
     historyApiFallback: true,
     // Critical: Enable history API fallback for SPA routing
     historyApiFallback: {
