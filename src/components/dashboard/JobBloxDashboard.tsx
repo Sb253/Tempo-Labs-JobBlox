@@ -772,7 +772,29 @@ const JobBloxDashboard = () => {
                 >
                   ×
                 </Button>
-                 </div>
+              </div>
+              <div className="overflow-auto max-h-[calc(90vh-80px)]">
+                {activeAIFeature === "documents" && <SmartDocumentGenerator />}
+                {activeAIFeature === "analytics" && (
+                  <PredictiveAnalyticsDashboard />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI Chat Assistant */}
+      {showAIChat && (
+        <AIChatAssistant
+          isMinimized={isChatMinimized}
+          onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
+          onClose={() => setShowAIChat(false)}
+          currentContext="dashboard"
+          onNavigate={handleNavigation}
+        />
+      )}
+    </div>
   );
 };
 
